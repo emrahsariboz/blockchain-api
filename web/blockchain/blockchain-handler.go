@@ -34,7 +34,6 @@ func (b *blockchain) AddBlock(w http.ResponseWriter, r *http.Request) {
 }
 
 func (b *blockchain) GetBlockchain(w http.ResponseWriter, r *http.Request) {
-
 	bc := b.GetBlocks()
 	err := json.NewEncoder(w).Encode(bc)
 

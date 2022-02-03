@@ -1,6 +1,11 @@
 package blockchain
 
+//block defines data format for blockchain
+//swagger:model
 type block struct {
+	//Hash of previous block
+	//
+	//required: true
 	PrevHash    string
 	CurrentHash string
 	Nonce       int32

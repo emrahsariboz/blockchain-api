@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/emrahsariboz/blockchain-restapi/web/blockchain"
+	"github.com/gorilla/mux"
 )
 
 func main() {
@@ -17,14 +18,20 @@ func main() {
 	blockchain := blockchain.NewBlockchain()
 
 	// Create Multiplexer (router)
-	mux := http.NewServeMux()
+	//mux := http.NewServeMux()
+	sm := mux.NewRouter()
 
 	// Add Handler to end-point
-	mux.Handle("/", blockchain)
+	getRouter := sm.Methods("GET").Subrouter()
+	getRouter.HandleFunc("/", blockchain.GetBlockchain)
+
+	// PUT Handler to end-point
+	putRouter := sm.Methods("PUT").Subrouter()
+	putRouter.HandleFunc("/add", blockchain.AddBlock)
 
 	log.Printf("Server started at port %s", *port)
 
 	// Start Server
-	http.ListenAndServe(*port, mux)
+	http.ListenAndServe(*port, sm)
 
 }

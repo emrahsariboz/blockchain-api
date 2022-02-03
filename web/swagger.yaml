@@ -1,0 +1,20 @@
+definitions:
+  block:
+    description: block defines data format for blockchain
+    properties:
+      CurrentHash:
+        type: string
+      Nonce:
+        format: int32
+        type: integer
+      PrevHash:
+        description: Hash of previous block
+        type: string
+      Timestamp:
+        type: string
+    required:
+    - PrevHash
+    type: object
+    x-go-package: github.com/emrahsariboz/blockchain-restapi/web/blockchain
+paths: {}
+swagger: "2.0"
