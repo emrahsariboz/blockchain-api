@@ -21,6 +21,14 @@ func (b *blockchain) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+//swagger:route PUT /add NewBlock
+//responses
+//200 nocontent
+// Consumes:
+// - application/json
+//
+// Produces:
+// - application/json
 func (b *blockchain) AddBlock(w http.ResponseWriter, r *http.Request) {
 	// the argument to decode must be non-nil pointer.
 	blk := &block{}
@@ -33,6 +41,10 @@ func (b *blockchain) AddBlock(w http.ResponseWriter, r *http.Request) {
 	b.Blocks = append(b.Blocks, *blk)
 }
 
+//swagger:route GET / getTag
+//returns list of blocks
+//responses
+// 200: blockResponse
 func (b *blockchain) GetBlockchain(w http.ResponseWriter, r *http.Request) {
 	bc := b.GetBlocks()
 	err := json.NewEncoder(w).Encode(bc)
@@ -40,4 +52,16 @@ func (b *blockchain) GetBlockchain(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+//List of blocks returns in the response
+// swagger:response blockResponse
+type blockResponse struct {
+	//All products in the system
+	//in: body
+	Body []block
+}
+
+// swagger:response noContent
+type noContent struct {
 }

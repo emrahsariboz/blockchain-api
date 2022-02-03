@@ -16,5 +16,31 @@ definitions:
     - PrevHash
     type: object
     x-go-package: github.com/emrahsariboz/blockchain-restapi/web/blockchain
-paths: {}
+paths:
+  /:
+    get:
+      description: |-
+        returns list of blocks
+        responses
+        200: blockResponse
+      operationId: getTag
+  /add:
+    put:
+      consumes:
+      - application/json
+      description: |-
+        responses
+        200 nocontent
+      operationId: NewBlock
+      produces:
+      - application/json
+responses:
+  blockResponse:
+    description: List of blocks returns in the response
+    schema:
+      items:
+        $ref: '#/definitions/block'
+      type: array
+  noContent:
+    description: ""
 swagger: "2.0"
